@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model cardType {
+  id        Int       @id @default(autoincrement())
+  name      String
+  createdAT DateTime? @default(now()) @db.Timestamp(6)
+  cards     cards[]
+}
+
+model cards {
+  id           Int       @id @default(autoincrement())
+  userId       Int
+  number       String    @unique
+  name         String
+  cvv          String
+  expiringDate String
+  password     String
+  isVirtual    Boolean   @default(false)
+  typeId       Int
+  createdAT    DateTime? @default(now()) @db.Timestamp(6)
+  cardType     cardType  @relation(fields: [typeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users        users     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model credentials {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  label     String    @unique
+  url       String
+  userName  String
+  password  String
+  createdAT DateTime? @default(now()) @db.Timestamp(6)
+  users     users     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model safeNotes {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  title     String    @unique
+  note      String
+  createdAT DateTime? @default(now()) @db.Timestamp(6)
+  users     users     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model users {
+  id          Int           @id @default(autoincrement())
+  email       String        @unique
+  password    String
+  createdAT   DateTime?     @default(now()) @db.Timestamp(6)
+  cards       cards[]
+  credentials credentials[]
+  safeNotes   safeNotes[]
+  wifi        wifi[]
+}
+
+model wifi {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  label     String    @unique
+  name      String
+  password  String
+  createdAT DateTime? @default(now()) @db.Timestamp(6)
+  users     users     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
