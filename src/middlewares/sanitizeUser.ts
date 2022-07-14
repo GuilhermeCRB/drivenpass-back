@@ -4,7 +4,7 @@ import { stripHtml } from "string-strip-html";
 import { CreateUser } from "../services/accessService.js";
 
 export function sanitizeUser(req: Request, res: Response, next: NextFunction) {
-    const receivedUser = req.body;
+    const receivedUser: CreateUser = req.body;
 
     const user: CreateUser = {
         ...receivedUser,
