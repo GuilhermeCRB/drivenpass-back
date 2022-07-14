@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
-import { signUpUser } from "../services/accessService.js";
+import { CreateUser, signUpUser } from "../services/accessService.js";
 
 export async function signUp(req: Request, res: Response) {
-    const { email, password }: { email: string, password: string } = req.body;
-    await signUpUser({ email, password });
-
+    const user: CreateUser = res.locals.user;
+    await signUpUser(user);
     res.sendStatus(201);
 }
