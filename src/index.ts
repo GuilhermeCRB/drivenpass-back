@@ -4,8 +4,8 @@ import "express-async-errors";
 import dotenv from "dotenv";
 import chalk from "chalk";
 
-import router from "./routers";
-import { errorHandlerMiddleware } from "./middlewares/errorHandlerMiddleware";
+import router from "./routers/index.js";
+import { errorHandlerMiddleware } from "./middlewares/errorHandlerMiddleware.js";
 
 dotenv.config();
 

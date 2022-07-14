@@ -1,10 +1,10 @@
 import { Router } from "express";
 
-import access from "./access";
-import wifi from "./wifi";
-import cards from "./cards";
-import safeNotes from "./safeNotes";
-import credentials from "./ credentials";
+import access from "./access.js";
+import wifi from "./wifi.js";
+import cards from "./cards.js";
+import safeNotes from "./safeNotes.js";
+import credentials from "./ credentials.js";
 
 const router = Router();
 
