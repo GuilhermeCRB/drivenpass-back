@@ -1,9 +1,8 @@
-import { User } from "@prisma/client"
-import db from "../config/database.js"
+import db from "../config/database.js";
 
-type CreateUser = Omit<User, "id" | "createdAT">
+import { CreateUser } from "../services/accessService.js"
 
-export async function signUpUser(userData: CreateUser) {
+export async function saveUserData(userData: CreateUser) {
     await db.user.create({
         data: userData
     });
