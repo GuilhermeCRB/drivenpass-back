@@ -7,14 +7,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model cardType {
+model CardType {
   id        Int       @id @default(autoincrement())
   name      String
   createdAT DateTime? @default(now()) @db.Timestamp(6)
-  cards     cards[]
+  cards     Card[]
+
+  @@map("cardTypes")
 }
 
-model cards {
+model Card {
   id           Int       @id @default(autoincrement())
   userId       Int
   number       String    @unique
@@ -25,11 +27,13 @@ model cards {
   isVirtual    Boolean   @default(false)
   typeId       Int
   createdAT    DateTime? @default(now()) @db.Timestamp(6)
-  cardType     cardType  @relation(fields: [typeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users        users     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  cardType     CardType  @relation(fields: [typeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users        User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("cards")
 }
 
-model credentials {
+model Credential {
   id        Int       @id @default(autoincrement())
   userId    Int
   label     String    @unique
@@ -37,35 +41,43 @@ model credentials {
   userName  String
   password  String
   createdAT DateTime? @default(now()) @db.Timestamp(6)
-  users     users     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users     User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("credentials")
 }
 
-model safeNotes {
+model SafeNote {
   id        Int       @id @default(autoincrement())
   userId    Int
   title     String    @unique
   note      String
   createdAT DateTime? @default(now()) @db.Timestamp(6)
-  users     users     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users     User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("safeNotes")
 }
 
-model users {
+model User {
   id          Int           @id @default(autoincrement())
   email       String        @unique
   password    String
   createdAT   DateTime?     @default(now()) @db.Timestamp(6)
-  cards       cards[]
-  credentials credentials[]
-  safeNotes   safeNotes[]
-  wifi        wifi[]
+  cards       Card[]
+  credentials Credential[]
+  safeNotes   SafeNote[]
+  wifi        Wifi[]
+
+  @@map("users")
 }
 
-model wifi {
+model Wifi {
   id        Int       @id @default(autoincrement())
   userId    Int
   label     String    @unique
   name      String
   password  String
   createdAT DateTime? @default(now()) @db.Timestamp(6)
-  users     users     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users     User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("wifi")
 }

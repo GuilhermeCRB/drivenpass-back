@@ -1,10 +1,10 @@
-import { db } from "../config/database.js"
+import { User } from "@prisma/client"
+import db from "../config/database.js"
 
-interface User {
-    email: string,
-    encryptedPassword: string
+type CreateUser = Omit<User, "id" | "createdAT">
+
+export async function signUpUser(userData: CreateUser) {
+    await db.user.create({
+        data: userData
+    });
 }
-
-// export async function signUpUser(user: User) {
-//     db.
-// }
