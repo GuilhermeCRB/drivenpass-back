@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { stripHtml } from "string-strip-html";
 
-import { InputCredential } from "../schemas/credentialSchema";
+import { InputCredential } from "../schemas/credentialSchema.js";
 
 export function sanitizeCredential(req: Request, res: Response, next: NextFunction) {
     const receivedCredential: InputCredential = req.body;
