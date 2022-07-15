@@ -1,12 +1,13 @@
 import { Router } from "express";
 
-import { createCredential, getCredentials } from "../controllers/credentialsController.js";
+import { createCredential, findCredentials } from "../controllers/credentialsController.js";
 import { sanitizeCredential } from "../middlewares/sanitizeCredential.js";
 import { validateSchema } from "../middlewares/validateSchema.js";
 import { credentialSchema } from "../schemas/credentialSchema.js";
 import { sanitizeId } from "../middlewares/sanitizeId.js";
 import validateToken from "../middlewares/validateToken.js";
 import isLabelUnique from "../middlewares/isLabelUnique.js";
+import checkCredentialId from "../middlewares/checkCredentialId.js";
 
 const credentials = Router();
 
@@ -21,7 +22,8 @@ credentials.post("/credentials",
 credentials.get("/credentials",
     validateToken,
     sanitizeId,
-    getCredentials
+    checkCredentialId,
+    findCredentials
 );
 
 export default credentials;

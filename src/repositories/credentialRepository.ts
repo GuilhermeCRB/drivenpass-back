@@ -14,3 +14,15 @@ export async function saveCredential(credential: CreateCredential) {
         data: credential
     });
 }
+
+export async function getCredentialById(id: number) {
+    return await db.credential.findUnique({
+        where: { id }
+    });
+}
+
+export async function getCredentials(userId: number) {
+    return await db.credential.findMany({
+        where: { userId }
+    });
+}
