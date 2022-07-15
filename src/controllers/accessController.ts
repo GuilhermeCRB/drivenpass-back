@@ -6,3 +6,7 @@ export async function signUp(req: Request, res: Response) {
     await signUpUser(user);
     res.sendStatus(201);
 }
+
+export async function signIn(req: Request, res: Response) {
+    res.sendStatus(200);
+}

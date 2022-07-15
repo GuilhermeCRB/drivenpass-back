@@ -8,8 +8,8 @@ export async function saveUserData(userData: CreateUser) {
     });
 }
 
-export async function checkEmail(email: string) {
-    await db.user.findUnique({
+export async function getUserByEmail(email: string) {
+    return await db.user.findUnique({
         where: { email }
     });
 }
