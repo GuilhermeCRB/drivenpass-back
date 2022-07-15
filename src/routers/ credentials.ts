@@ -1,9 +1,10 @@
 import { Router } from "express";
 
-import { createCredential } from "../controllers/credentialsController.js";
+import { createCredential, getCredentials } from "../controllers/credentialsController.js";
 import { sanitizeCredential } from "../middlewares/sanitizeCredential.js";
 import { validateSchema } from "../middlewares/validateSchema.js";
 import { credentialSchema } from "../schemas/credentialSchema.js";
+import { sanitizeId } from "../middlewares/sanitizeId.js";
 import validateToken from "../middlewares/validateToken.js";
 import isLabelUnique from "../middlewares/isLabelUnique.js";
 
@@ -15,6 +16,12 @@ credentials.post("/credentials",
     validateSchema(credentialSchema),
     isLabelUnique,
     createCredential
+);
+
+credentials.get("/credentials",
+    validateToken,
+    sanitizeId,
+    getCredentials
 );
 
 export default credentials;
