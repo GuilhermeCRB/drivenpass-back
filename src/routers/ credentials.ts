@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { createCredential, findCredentials } from "../controllers/credentialsController.js";
+import { createCredential, eraseCredential, findCredentials } from "../controllers/credentialsController.js";
 import { sanitizeCredential } from "../middlewares/sanitizeCredential.js";
 import { validateSchema } from "../middlewares/validateSchema.js";
 import { credentialSchema } from "../schemas/credentialSchema.js";
@@ -24,6 +24,13 @@ credentials.get("/credentials",
     sanitizeId,
     checkCredentialId,
     findCredentials
+);
+
+credentials.delete("/credentials/:id",
+    validateToken,
+    sanitizeId,
+    checkCredentialId,
+    eraseCredential
 );
 
 export default credentials;

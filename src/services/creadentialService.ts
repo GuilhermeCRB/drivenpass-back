@@ -3,7 +3,7 @@ import { Response } from "express";
 import { Credential } from "@prisma/client";
 
 import { TokenUser } from "../controllers/accessController.js";
-import { getCredentials, saveCredential } from "../repositories/credentialRepository.js";
+import { deleteCredential, getCredentials, saveCredential } from "../repositories/credentialRepository.js";
 import { InputCredential } from "../schemas/credentialSchema.js";
 
 export async function postCredential(inputCredential: InputCredential, res: Response) {
@@ -36,4 +36,8 @@ export function decryptCredential(credentials: Credential[]) {
 export async function getDecryptedCredentials(userId: number) {
     const credentials = await getCredentials(userId);
     return decryptCredential(credentials);
+}
+
+export async function eraseUserCredential(id: number) {
+    await deleteCredential(id);
 }

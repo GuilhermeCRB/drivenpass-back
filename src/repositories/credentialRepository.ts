@@ -26,3 +26,9 @@ export async function getCredentials(userId: number) {
         where: { userId }
     });
 }
+
+export async function deleteCredential(id: number) {
+    return await db.credential.delete({
+        where: { id }
+    });
+}
