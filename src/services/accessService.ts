@@ -2,6 +2,7 @@ import { User } from "@prisma/client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+import { TokenUser } from "../controllers/accessController.js";
 import { saveUserData } from "../repositories/accessRepository.js";
 
 export type CreateUser = Omit<User, "id" | "createdAT">;
@@ -16,6 +17,6 @@ function encryptPassword(password: string) {
     return bcrypt.hashSync(password, saltRounds);
 }
 
-export function generateToken(user: CreateUser){
+export function generateToken(user: TokenUser){
     return jwt.sign(user, process.env.SECRET_KEY);
 }

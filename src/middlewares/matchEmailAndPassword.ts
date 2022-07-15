@@ -1,3 +1,4 @@
+import { User } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { Request, Response, NextFunction } from "express";
 
@@ -6,17 +7,12 @@ import { CreateUser } from "../services/accessService.js";
 
 export async function matchEmailAndPassword(req: Request, res: Response, next: NextFunction) {
     const user: CreateUser = res.locals.data;
-    const isValidated: boolean = await checkUser(user, res);
 
-    if(!isValidated) return res.status(401).send("Not allowed. Check your email and password.");
+    const userFromDb: User = await getUserByEmail(user.email);
+    const isValidated: boolean = bcrypt.compareSync(user.password, userFromDb.password);
+    if (!userFromDb || !isValidated) return res.status(401).send("Not allowed. Check your email and password.");
+
+    res.locals.user = {id: userFromDb.id, email: userFromDb.email};
 
     next();
-}
-
-async function checkUser({email, password}: {email: string, password: string}, res: Response){
-    const userFromDb = await getUserByEmail(email);
-
-    if(!userFromDb) return false;
-    
-    return bcrypt.compareSync(password, userFromDb.password);
 }
