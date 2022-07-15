@@ -1,9 +1,8 @@
+import { CreateUser } from "../services/accessService.js";
 import Joi from "joi";
 
-import { CreateUser } from "../services/accessService";
-
 const userSchema = Joi.object<CreateUser>({
-    email: Joi.string().required(),
+    email: Joi.string().email().required(),
     password: Joi.string().min(10).required()
 });
 

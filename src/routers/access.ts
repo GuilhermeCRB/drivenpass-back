@@ -9,9 +9,7 @@ import userSchema from "../schemas/userSchema.js";
 
 const access = Router();
 
-access.use(sanitizeUser);
-access.use(validateSchema(userSchema));
-access.post("/sign-up", isEmailUnique, signUp);
-access.post("/sign-in", matchEmailAndPassword, signIn);
+access.post("/sign-up", sanitizeUser, validateSchema(userSchema), isEmailUnique, signUp);
+access.post("/sign-in", sanitizeUser, validateSchema(userSchema), matchEmailAndPassword, signIn);
 
 export default access;

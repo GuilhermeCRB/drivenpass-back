@@ -5,7 +5,7 @@ import { getUserByEmail } from "../repositories/accessRepository.js";
 import { CreateUser } from "../services/accessService.js";
 
 export async function matchEmailAndPassword(req: Request, res: Response, next: NextFunction) {
-    const user: CreateUser = res.locals.user;
+    const user: CreateUser = res.locals.data;
     const isValidated: boolean = await checkUser(user, res);
 
     if(!isValidated) return res.status(401).send("Not allowed. Check your email and password.");

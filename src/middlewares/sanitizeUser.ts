@@ -3,6 +3,8 @@ import { stripHtml } from "string-strip-html";
 
 import { CreateUser } from "../services/accessService.js";
 
+
+
 export function sanitizeUser(req: Request, res: Response, next: NextFunction) {
     const receivedUser: CreateUser = req.body;
 
@@ -12,7 +14,7 @@ export function sanitizeUser(req: Request, res: Response, next: NextFunction) {
         password: stripHtml(receivedUser.password).result
     }
 
-    res.locals.user = user;
+    res.locals.data = user;
 
     next();
 }

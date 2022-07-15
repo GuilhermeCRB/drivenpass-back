@@ -1,10 +1,10 @@
+import { User } from "@prisma/client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { User } from "@prisma/client";
 
 import { saveUserData } from "../repositories/accessRepository.js";
 
-export type CreateUser = Omit<User, "id" | "createdAT">
+export type CreateUser = Omit<User, "id" | "createdAT">;
 
 export async function signUpUser(user: CreateUser) {
     const encryptedPassword = encryptPassword(user.password);
