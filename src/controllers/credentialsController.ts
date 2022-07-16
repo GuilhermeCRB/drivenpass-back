@@ -1,12 +1,10 @@
 import { Request, Response } from "express";
 import { Credential } from "@prisma/client";
 
-import { InputCredential } from "../schemas/credentialSchema.js";
 import { decryptCredential, eraseUserCredential, getDecryptedCredentials, postCredential } from "../services/creadentialService.js";
 
 export async function createCredential(req: Request, res: Response) {
-    const credential: InputCredential = res.locals.data;
-    await postCredential(credential, res);
+    await postCredential(res);
     return res.sendStatus(201);
 }
 

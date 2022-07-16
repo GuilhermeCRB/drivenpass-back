@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-import { getEntityByLabel } from "../repositories/credentialRepository.js";
+import { getEntityByLabel } from "../repositories/entityRepository.js";
 
 export default async function isLabelUnique(req: Request, res: Response, next: NextFunction) {
     const { label }: { label: string } = res.locals.data;

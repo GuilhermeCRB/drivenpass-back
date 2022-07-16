@@ -19,6 +19,7 @@ model CardType {
 model Card {
   id           Int       @id @default(autoincrement())
   userId       Int
+  label        String    @unique
   number       String    @unique
   name         String
   cvv          String
@@ -28,7 +29,7 @@ model Card {
   typeId       Int
   createdAT    DateTime? @default(now()) @db.Timestamp(6)
   cardType     CardType  @relation(fields: [typeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users        User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users        User      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("cards")
 }
@@ -41,7 +42,7 @@ model Credential {
   userName  String
   password  String
   createdAT DateTime? @default(now()) @db.Timestamp(6)
-  users     User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users     User      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("credentials")
 }
@@ -49,10 +50,10 @@ model Credential {
 model SafeNote {
   id        Int       @id @default(autoincrement())
   userId    Int
-  title     String    @unique
+  label     String    @unique
   note      String
   createdAT DateTime? @default(now()) @db.Timestamp(6)
-  users     User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users     User      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("safeNotes")
 }
@@ -77,7 +78,7 @@ model Wifi {
   name      String
   password  String
   createdAT DateTime? @default(now()) @db.Timestamp(6)
-  users     User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users     User      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("wifi")
 }

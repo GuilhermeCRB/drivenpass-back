@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
 import { TokenUser } from "../controllers/accessController.js";
-import { getEntityById } from "../repositories/credentialRepository.js";
+import { getEntityById } from "../repositories/entityRepository.js";
 
 export default async function checkEntityId(req: Request, res: Response, next: NextFunction) {
     const entityId: number | undefined = res.locals.id;

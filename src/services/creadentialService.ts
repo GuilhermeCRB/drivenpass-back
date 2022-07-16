@@ -3,10 +3,10 @@ import { Response } from "express";
 import { Credential } from "@prisma/client";
 
 import { TokenUser } from "../controllers/accessController.js";
-import { deleteCredential, getCredentials, saveEntity } from "../repositories/credentialRepository.js";
+import { deleteCredential, getCredentials, saveEntity } from "../repositories/entityRepository.js";
 import { InputCredential } from "../schemas/credentialSchema.js";
 
-export async function postCredential(inputCredential: InputCredential, res: Response) {
+export async function postCredential(res: Response) {
     const user: TokenUser = res.locals.user;
     const entity: string = res.locals.entity;
     const credentialInputs: InputCredential = res.locals.data;
