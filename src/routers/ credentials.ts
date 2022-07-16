@@ -7,7 +7,7 @@ import { credentialSchema } from "../schemas/credentialSchema.js";
 import { sanitizeId } from "../middlewares/sanitizeId.js";
 import validateToken from "../middlewares/validateToken.js";
 import isLabelUnique from "../middlewares/isLabelUnique.js";
-import checkCredentialId from "../middlewares/checkCredentialId.js";
+import checkEntityId from "../middlewares/checkEntityId.js";
 
 const credentials = Router();
 
@@ -22,14 +22,14 @@ credentials.post("/credentials",
 credentials.get("/credentials",
     validateToken,
     sanitizeId,
-    checkCredentialId,
+    checkEntityId,
     findCredentials
 );
 
 credentials.delete("/credentials/:id",
     validateToken,
     sanitizeId,
-    checkCredentialId,
+    checkEntityId,
     eraseCredential
 );
 

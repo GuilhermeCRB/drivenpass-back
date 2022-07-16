@@ -11,20 +11,22 @@ export async function createCredential(req: Request, res: Response) {
 }
 
 export async function findCredentials(req: Request, res: Response) {
-    const credential: Credential | undefined = res.locals.credential;
+    const credential: Credential | undefined = res.locals.entityData;
     const { id }: { id: number } = res.locals.user;
 
     if (credential) {
         const decryptedCredential = decryptCredential([credential]);
         return res.status(200).send(decryptedCredential[0]);
     } else {
-        const credentialsArray = await getDecryptedCredentials(id);
+        const entity: string = res.locals.entity;
+        const credentialsArray = await getDecryptedCredentials(entity, id);
         return res.status(200).send(credentialsArray);
     }
 }
 
 export async function eraseCredential(req: Request, res: Response) {
     const id: number = res.locals.id;
-    await eraseUserCredential(id);
-    return res.sendStatus(200);
+    const entity: string = res.locals.entity;
+    await eraseUserCredential(entity, id);
+    return res.sendStatus(204);
 }

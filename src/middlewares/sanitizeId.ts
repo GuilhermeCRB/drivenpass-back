@@ -15,5 +15,8 @@ export function sanitizeId(req: Request, res: Response, next: NextFunction) {
         res.locals.id = +id;
     }
 
+    const entity = "credential";
+    res.locals.entity = entity;
+
     next();
 }
