@@ -32,4 +32,8 @@ function choseEntity(req: Request){
     if(req.route.path === "/wi-fi" || req.route.path === "/wi-fi/:id"){
         return "wifi";
     }
+
+    if(req.route.path === "/cards" || req.route.path === "/cards/:id"){
+        return "card";
+    }
 }

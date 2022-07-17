@@ -1,5 +1,6 @@
 import Cryptr from "cryptr";
 import { Response } from "express";
+import { Card } from "@prisma/client";
 
 import { InputCard } from "../schemas/cardSchema.js";
 import { TokenUser } from "../controllers/accessController.js";
@@ -26,19 +27,20 @@ function formatCard(cardInputs: InputCard, userId: number) {
     });
 }
 
-// export function decryptWiFi(wiFi: Wifi[]) {
-//     const cryptr = new Cryptr(process.env.CRYPTR_KEY);
+export function decryptCard(cards: Card[]) {
+    const cryptr = new Cryptr(process.env.CRYPTR_KEY);
 
-//     return wiFi.map(wifi => {
-//         const decryptedPassword = cryptr.decrypt(wifi.password);
-//         return { ...wifi, password: decryptedPassword };
-//     });
-// }
+    return cards.map(card => {
+        const decryptedCvv = cryptr.decrypt(card.cvv);
+        const decryptedPassword = cryptr.decrypt(card.password);
+        return { ...card, cvv: decryptedCvv, password: decryptedPassword };
+    });
+}
 
-// export async function getDecryptedWiFi(entity: string, userId: number) {
-//     const wiFi = await getEntities(entity, userId);
-//     return decryptWiFi(wiFi);
-// }
+export async function getDecryptedCard(entity: string, userId: number) {
+    const cards = await getEntities(entity, userId);
+    return decryptCard(cards);
+}
 
 // export async function eraseUserWiFi(entity: string, id: number) {
 //     await deleteEntity(entity, id);
