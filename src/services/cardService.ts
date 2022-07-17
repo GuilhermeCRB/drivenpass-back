@@ -42,6 +42,6 @@ export async function getDecryptedCard(entity: string, userId: number) {
     return decryptCard(cards);
 }
 
-// export async function eraseUserWiFi(entity: string, id: number) {
-//     await deleteEntity(entity, id);
-// }
+export async function eraseUserCard(entity: string, id: number) {
+    await deleteEntity(entity, id);
+}

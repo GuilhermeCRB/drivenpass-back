@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { createCard, findCard } from "../controllers/cardController.js";
+import { createCard, eraseCard, findCard } from "../controllers/cardController.js";
 import isLabelUnique from "../middlewares/isLabelUnique.js";
 import validateToken from "../middlewares/validateToken.js";
 import { sanitizeCard } from "../middlewares/sanitizeCard.js";
@@ -27,7 +27,10 @@ cards.get("/cards",
 );
 
 cards.delete("/cards/:id",
-
+    validateToken,
+    sanitizeId,
+    checkEntityId,
+    eraseCard
 );
 
 export default cards;

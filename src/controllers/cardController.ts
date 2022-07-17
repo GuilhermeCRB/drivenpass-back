@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Card } from "@prisma/client";
 
-import { decryptCard, getDecryptedCard, postCard } from "../services/cardService.js";
+import { decryptCard, eraseUserCard, getDecryptedCard, postCard } from "../services/cardService.js";
 
 export async function createCard(req: Request, res: Response) {
     await postCard(res);
@@ -22,9 +22,9 @@ export async function findCard(req: Request, res: Response) {
     }
 }
 
-// export async function eraseWiFi(req: Request, res: Response) {
-//     const id: number = res.locals.id;
-//     const entity: string = res.locals.entity;
-//     await eraseUserWiFi(entity, id);
-//     return res.sendStatus(204);
-// }
+export async function eraseCard(req: Request, res: Response) {
+    const id: number = res.locals.id;
+    const entity: string = res.locals.entity;
+    await eraseUserCard(entity, id);
+    return res.sendStatus(204);
+}
