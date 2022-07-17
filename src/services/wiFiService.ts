@@ -1,6 +1,6 @@
 import Cryptr from "cryptr";
 import { Response } from "express";
-// import { Credential } from "@prisma/client";
+import { Wifi } from "@prisma/client";
 
 import { InputWiFi } from "../schemas/wiFiSchema.js";
 import { TokenUser } from "../controllers/accessController.js";
@@ -25,19 +25,19 @@ function formatWiFi(wiFiInputs: InputWiFi, userId: number) {
     });
 }
 
-// export function decryptCredential(credentials: Credential[]) {
-//     const cryptr = new Cryptr(process.env.CRYPTR_KEY);
+export function decryptWiFi(wiFi: Wifi[]) {
+    const cryptr = new Cryptr(process.env.CRYPTR_KEY);
 
-//     return credentials.map(credential => {
-//         const decryptedPassword = cryptr.decrypt(credential.password);
-//         return { ...credential, password: decryptedPassword };
-//     });
-// }
+    return wiFi.map(wifi => {
+        const decryptedPassword = cryptr.decrypt(wifi.password);
+        return { ...wifi, password: decryptedPassword };
+    });
+}
 
-// export async function getDecryptedCredentials(entity: string, userId: number) {
-//     const credentials = await getEntities(entity, userId);
-//     return decryptCredential(credentials);
-// }
+export async function getDecryptedWiFi(entity: string, userId: number) {
+    const wiFi = await getEntities(entity, userId);
+    return decryptWiFi(wiFi);
+}
 
 // export async function eraseUserCredential(entity: string, id: number) {
 //     await deleteEntity(entity, id);

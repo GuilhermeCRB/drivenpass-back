@@ -1,26 +1,26 @@
 import { Request, Response } from "express";
-// import { Credential } from "@prisma/client";
+import { Wifi } from "@prisma/client";
 
-import { postWiFi } from "../services/wiFiService.js";
+import { decryptWiFi, getDecryptedWiFi, postWiFi } from "../services/wiFiService.js";
 
 export async function createWiFi(req: Request, res: Response) {
     await postWiFi(res);
     return res.sendStatus(201);
 }
 
-// export async function findCredentials(req: Request, res: Response) {
-//     const credential: Credential | undefined = res.locals.entityData;
-//     const { id }: { id: number } = res.locals.user;
+export async function findWifi(req: Request, res: Response) {
+    const wiFi: Wifi | undefined = res.locals.entityData;
+    const { id }: { id: number } = res.locals.user;
 
-//     if (credential) {
-//         const decryptedCredential = decryptCredential([credential]);
-//         return res.status(200).send(decryptedCredential[0]);
-//     } else {
-//         const entity: string = res.locals.entity;
-//         const credentialsArray = await getDecryptedCredentials(entity, id);
-//         return res.status(200).send(credentialsArray);
-//     }
-// }
+    if (wiFi) {
+        const decryptedWiFi = decryptWiFi([wiFi]);
+        return res.status(200).send(decryptedWiFi[0]);
+    } else {
+        const entity: string = res.locals.entity;
+        const wiFiArray = await getDecryptedWiFi(entity, id);
+        return res.status(200).send(wiFiArray);
+    }
+}
 
 // export async function eraseCredential(req: Request, res: Response) {
 //     const id: number = res.locals.id;
