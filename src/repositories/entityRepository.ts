@@ -23,13 +23,13 @@ export async function getEntityById(entity: string, id: number) {
     });
 }
 
-export async function getCredentials(entity: string, userId: number) {
+export async function getEntities(entity: string, userId: number) {
     return await db[entity].findMany({
         where: { userId }
     });
 }
 
-export async function deleteCredential(entity: string, id: number) {
+export async function deleteEntity(entity: string, id: number) {
     return await db[entity].delete({
         where: { id }
     });

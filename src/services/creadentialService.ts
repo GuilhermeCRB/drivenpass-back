@@ -3,7 +3,7 @@ import { Response } from "express";
 import { Credential } from "@prisma/client";
 
 import { TokenUser } from "../controllers/accessController.js";
-import { deleteCredential, getCredentials, saveEntity } from "../repositories/entityRepository.js";
+import { deleteEntity, getEntities, saveEntity } from "../repositories/entityRepository.js";
 import { InputCredential } from "../schemas/credentialSchema.js";
 
 export async function postCredential(res: Response) {
@@ -35,10 +35,10 @@ export function decryptCredential(credentials: Credential[]) {
 }
 
 export async function getDecryptedCredentials(entity: string, userId: number) {
-    const credentials = await getCredentials(entity, userId);
+    const credentials = await getEntities(entity, userId);
     return decryptCredential(credentials);
 }
 
 export async function eraseUserCredential(entity: string, id: number) {
-    await deleteCredential(entity, id);
+    await deleteEntity(entity, id);
 }
