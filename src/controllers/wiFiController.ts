@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Wifi } from "@prisma/client";
 
-import { decryptWiFi, getDecryptedWiFi, postWiFi } from "../services/wiFiService.js";
+import { decryptWiFi, eraseUserWiFi, getDecryptedWiFi, postWiFi } from "../services/wiFiService.js";
 
 export async function createWiFi(req: Request, res: Response) {
     await postWiFi(res);
@@ -22,9 +22,9 @@ export async function findWifi(req: Request, res: Response) {
     }
 }
 
-// export async function eraseCredential(req: Request, res: Response) {
-//     const id: number = res.locals.id;
-//     const entity: string = res.locals.entity;
-//     await eraseUserCredential(entity, id);
-//     return res.sendStatus(204);
-// }
+export async function eraseWiFi(req: Request, res: Response) {
+    const id: number = res.locals.id;
+    const entity: string = res.locals.entity;
+    await eraseUserWiFi(entity, id);
+    return res.sendStatus(204);
+}

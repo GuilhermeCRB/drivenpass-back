@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { createWiFi, findWifi } from "../controllers/wiFiController.js";
+import { createWiFi, eraseWiFi, findWifi } from "../controllers/wiFiController.js";
 import validateToken from "../middlewares/validateToken.js";
 import isLabelUnique from "../middlewares/isLabelUnique.js";
 import { sanitizeId } from "../middlewares/sanitizeId.js";
@@ -27,7 +27,10 @@ wifi.get("/wi-fi",
 );
 
 wifi.delete("/wi-fi/:id",
-
+    validateToken,
+    sanitizeId,
+    checkEntityId,
+    eraseWiFi
 );
 
 export default wifi;

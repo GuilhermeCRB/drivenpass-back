@@ -39,6 +39,6 @@ export async function getDecryptedWiFi(entity: string, userId: number) {
     return decryptWiFi(wiFi);
 }
 
-// export async function eraseUserCredential(entity: string, id: number) {
-//     await deleteEntity(entity, id);
-// }
+export async function eraseUserWiFi(entity: string, id: number) {
+    await deleteEntity(entity, id);
+}
