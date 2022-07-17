@@ -1,9 +1,10 @@
-import { Credential, SafeNote } from "@prisma/client";
+import { Credential, SafeNote, Wifi } from "@prisma/client";
 import db from "../config/database.js";
 
 type CreateCredential = Omit<Credential, "id" | "createdAT">;
 type CreateSafeNote = Omit<SafeNote, "id" | "createdAT">;
-type CreateEntity = CreateCredential | CreateSafeNote;
+type CreateWiFi = Omit<Wifi, "id" | "createdAT">;
+type CreateEntity = CreateCredential | CreateSafeNote | CreateWiFi;
 
 export async function getEntityByLabel(entity: string, label: string) {
     return await db[entity].findUnique({
