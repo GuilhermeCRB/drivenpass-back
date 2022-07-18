@@ -19,12 +19,53 @@ export async function saveEntity(entity: string, entityData: CreateEntity) {
 }
 
 export async function getEntityById(entity: string, id: number) {
+    if(entity === "card"){
+        return await db[entity].findUnique({
+            where: { id },
+            select: {
+                userId: true,
+                label: true,
+                number: true,
+                name: true,
+                cvv: true,
+                expiringDate: true,
+                password: true,
+                isVirtual: true,
+                cardType: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
+        });
+    }
+
     return await db[entity].findUnique({
         where: { id }
     });
 }
 
 export async function getEntities(entity: string, userId: number) {
+    if(entity === "card"){
+        return await db[entity].findMany({
+            where: { userId },
+            select: {
+                label: true,
+                number: true,
+                name: true,
+                cvv: true,
+                expiringDate: true,
+                password: true,
+                isVirtual: true,
+                cardType: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
+        });
+    }
+
     return await db[entity].findMany({
         where: { userId }
     });

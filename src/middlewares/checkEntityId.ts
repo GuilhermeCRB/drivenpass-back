@@ -6,10 +6,10 @@ import { getEntityById } from "../repositories/entityRepository.js";
 export default async function checkEntityId(req: Request, res: Response, next: NextFunction) {
     const entity = choseEntity(req);
     res.locals.entity = entity;
-
+    
     const entityId: number | undefined = res.locals.id;
     if(!entityId) return next();
-
+    
     const user: TokenUser = res.locals.user;
     const entityData = await getEntityById(entity, entityId);
     if(!entityData) return res.status(404).send("Not found");
