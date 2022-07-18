@@ -164,7 +164,7 @@ First, clone this repository to your local machine:
 git clone https://github.com/luanalessa/projeto-backend.git
 ```
 
-then, inside the application folder, run the following coomand to install dependencies.
+then, inside the application folder, run the following command to install dependencies.
 
 ```
 npm install
